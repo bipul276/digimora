@@ -1,0 +1,35 @@
+services:
+  app:
+    container_name: digimora-app
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    container_name: digimora-db
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  mongo-express: # (Optional) Web UI for MongoDB
+    image: mongo-express
+    container_name: digimora-mongo-ui
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
