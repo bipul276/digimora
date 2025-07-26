@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -24,3 +26,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+body {
+  background-color: #161618;
+  color: #e5e7eb;
+}
+
+/* ... existing scrollbar styles ... */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1e1e21;
+}
+::-webkit-scrollbar-thumb {
+  background: #4a4a52;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5a5a62;
+}
+
+
+/* NEW: Add this class for the futuristic background effect */
+.auth-bg {
+    background-color: #0f0f1b;
+    background-image: radial-gradient(circle at center, rgba(76, 29, 149, 0.3) 0%, transparent 60%);
+    position: relative;
+    overflow: hidden;
+}
+

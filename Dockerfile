@@ -9,8 +9,8 @@ ENV NODE_ENV=production
 # ------------------- Stage 1: Install dependencies -------------------
 FROM base AS deps
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --legacy-peer-deps
-
+RUN npm ci --legacy-peer-deps
+#-------------------- ADD --omit=dev when publishing ot for client after development-------------
 # ------------------- Stage 2: Build the application -------------------
 FROM deps AS build
 COPY . .
@@ -28,7 +28,6 @@ COPY --from=build /app/next.config.ts ./next.config.ts
 COPY --from=build /app/tsconfig.json ./tsconfig.json
 COPY --from=build /app/tailwind.config.ts ./tailwind.config.ts
 COPY --from=build /app/postcss.config.js ./postcss.config.js
-COPY --from=build /app/postcss.config.mjs ./postcss.config.mjs
 COPY --from=build /app/next-env.d.ts ./next-env.d.ts
 
 # If you have other important files, copy them here too (e.g. .env.production, etc.)
